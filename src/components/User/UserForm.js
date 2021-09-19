@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://mystory-backend.herokuapp.com/'
