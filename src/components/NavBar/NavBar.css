@@ -1,0 +1,16 @@
+nav {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 2px solid black;
+    padding: 10px;
+    margin-bottom: 2.5rem;
+  }
+  
+  nav a {
+    text-decoration: none;
+    margin: 20px;
+  }
+  
+  nav a.active {
+    text-decoration: underline;
+  }

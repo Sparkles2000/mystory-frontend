@@ -1,0 +1,36 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .home-heading {
+    font-size: 2.5rem;
+    text-decoration: underline;
+    margin-bottom: 2rem;
+  }
+  
+  .home-img {
+    width: 50%;
+    margin-bottom: 2rem;
+  }
+  
+  .home-link {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(37, 8, 90);
+    border: 2px solid rgb(37, 8, 90);
+    padding: 20px;
+    transition: all 0.2s linear;
+  }
+  
+  .home-link:hover {
+    font-size: 1.7rem;
+    background-color: black;
+    color: white;
+  }
+
+  h1 {
+    color:rgb(37, 8, 90);
+  }

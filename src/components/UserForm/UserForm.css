@@ -1,0 +1,24 @@
+.user-form {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    color: rgb(37, 8, 90);
+    margin: 15px;
+  }
+  
+  .user-form label {
+    margin-right: 5px;
+  }
+  
+  .user-form input {
+    margin-left: 5px;
+  }
+  
+  .user-form button {
+    padding: 0px 5px;
+  }
+
+.user-form-img {
+  display: flex;
+  align-items: center;
+}
