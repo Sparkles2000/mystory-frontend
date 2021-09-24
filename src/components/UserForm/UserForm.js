@@ -4,13 +4,13 @@ import "./UserForm.css"
 
 function UserForm({ createUser }) {
   const [formState, setFormState] = useState({
-    name: "",
-    image: "",
+    alias: "",
+    img_url: "",
     age: undefined,
     story: ""
   })
 
-  function handleChange(e) {
+  function handleUpdate(e) {
     const userInput = e.target.value;
     const fieldName = e.target.name;
     setFormState({
@@ -23,7 +23,7 @@ function UserForm({ createUser }) {
     e.preventDefault();
     const user = {
       alias: formState.alias,
-      image: formState.image,
+      img_url: formState.img_url,
       age: parseInt(formState.age),
       story: formState.story,
     };
@@ -32,13 +32,13 @@ function UserForm({ createUser }) {
 
   return (
     <div className="user-form">
-      <h2 className="user-form-heading">New User</h2>
+      <h2 className="user-form-heading">Create User</h2>
       <form onSubmit={handleSubmit}>
-        <label> alias: <input type="text" alias="alias" value={formState.name} onChange={handleChange} /></label>
-        <label> image: <input type="text" name="image" value={formState.image} onChange={handleChange} /></label>
-        <label> age: <input type="text" name="age" value={formState.age} onChange={handleChange} /></label>
-        <label> story: <input type="text" name="story" value={formState.story} onChange={handleChange} /></label>
-        <button type="submit">New User</button>
+        <label> alias: <input type="text" name="alias" value={formState.alias} onChange={handleUpdate} /> </label>
+        <label> image: <input type="text" name="img_url" value={formState.img_url} onChange={handleUpdate} /> </label>
+        <label> age: <input type="text" name="age" value={formState.age} onChange={handleUpdate} /> </label>
+        <label> story: <input type="text" name="story" value={formState.story} onChange={handleUpdate} /> </label>
+        <button type="submit">Create User</button>
       </form>
     </div>
   )

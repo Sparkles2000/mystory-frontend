@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./User.css";
 import { Link } from 'react-router-dom';
-
+import './User.css'
 const { id, alias, image, age, story } = User
 
 function User({ user, deleteUser, updateUser, initialDelay=0 }) {
@@ -42,10 +41,9 @@ if (!render) {
     <div className="user"> 
       <h3> <Link to={`/users/${id}`}>{alias}</Link> </h3>
       <img src={image} alt={`${image}`} width="90%"/>
-      <div className="User-desc">
+      <div className="User-desc"></div>
         <p>Age: {age}</p>
         <p>Story: {story}</p>
-      </div>
       {editMode && (
         <>
           <form onSubmit={handleUpdate}>

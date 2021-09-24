@@ -1,20 +1,23 @@
-import { useState, useEffect } from 'react';
-import { BASE_URL } from "../constraints/index.js";
+import React, { useState, useEffect } from 'react';
+import "./UserContainer.css";
 import User from '../User/User';
 import UserForm from "../UserForm/UserForm";
-import "./UserContainer.css";
+
+const BASE_URL = 'http://127.0.0.1:3000/users';
 
 function UserContainer() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(BASE_URL + "users/")
-      .then((res) => res.json())
-      .then((json) => setUsers(json));
-  }, []);
+    fetch(BASE_URL)
+      .then(r => r.json())
+      .then(userData => setUsers(userData))
+  }, [])
 
   function deleteUser(userId) {
-    fetch(BASE_URL + "users/")
+    const URL = `${BASE_URL}/${userId}`; // BASE_URL + `/${userId}`
+    const config = { method: "DELETE" };
+    fetch(URL, config)
       .then(r => r.json())
       .then(() => {
         const newUsers = users.filter(user => user.id !== userId);
@@ -34,15 +37,16 @@ function UserContainer() {
     fetch(BASE_URL, config)
       .then(r => r.json())
       .then(newUser => {
-        const newUsers = [...user, newUser];
+        const newUsers = [...users, newUser];
         setUsers(newUsers);
       })
   }
 
   function updateUser(id, updatedUser) {
-    fetch(BASE_URL + "users/" + id, {
+    fetch(`${BASE_URL}/${id}`, {
       method: "PATCH",
       headers: {
+        "Accept-Header": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedUser),
@@ -58,13 +62,13 @@ function UserContainer() {
   }
 
   return (
-    <div className="user-container">
+    <div className="User-container">
       <UserForm createUser={createUser} />
-      <div className="user-container-list">
+      <div className="User-container-list">
         { users.length === 0
           ? <h1>Loading...</h1>
             :users.map(user => {
-              return <User 
+              return <User
                         key={user.id} 
                         user={user} 
                         deleteUser={deleteUser}

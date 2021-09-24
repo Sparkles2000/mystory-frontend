@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import "./About.css"
 import sad from "./sad.jpg"
@@ -14,7 +15,7 @@ function About() {
           This website is confidential unless posting on the main forum.
       </h2>
       <img className="about-img" alt="Sad" src={sad} />
-      <Link className="about-link" to="/users">Let's get started!</Link>
+      <Link className="about-link" to="/user">Let's get started!</Link>
     </div>
   )
 }

@@ -8,7 +8,7 @@ function Home() {
     <div className="home-container">
       <h1 className="home-heading">MyStory.com</h1>
       <img className="home-img" alt="Sad" src={sad} />
-      <Link className="home-link" to="/users">Let's get started!</Link>
+      <Link className="home-link" to="/user">Let's get started!</Link>
     </div>
   )
 }
