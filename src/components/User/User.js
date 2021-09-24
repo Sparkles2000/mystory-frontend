@@ -48,7 +48,7 @@ if (!render) {
         <>
           <form onSubmit={handleUpdate}>
             <label> alias: <input type="text" alias="alias" value={newUser.alias} onChange={handleChange} /></label>
-            <label> image: <input type="text" name="image" value={newUser.image} onChange={handleChange} /></label>
+            <label> image: <input type="text" name="image" value={newUser.img_url} onChange={handleChange} /></label>
             <label> age: <input type="text" name="age" value={newUser.age} onChange={handleChange} /></label>
             <label> story: <input type="text" name="story" value={newUser.story} onChange={handleChange} /></label>
             <button className="user-btn" onClick={handleUpdate}>Update User info</button>
