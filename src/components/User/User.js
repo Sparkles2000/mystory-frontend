@@ -15,7 +15,7 @@ function User({ user, deleteUser, updateUser, initialDelay=0 }) {
 
   function handleChange(e) {
     const updatedValue = { ...newUser };
-    updateUser[e.target.name] = e.target.value;
+    updatedValue[e.target.name] = e.target.value;
     setNewUser({ ...updatedValue });
   }
 
