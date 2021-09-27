@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, setState, useEffect } from 'react';
+import "./User.css";
 import { Link } from 'react-router-dom';
-import './User.css'
-const { id, alias, image, age, story } = User
 
 function User({ user, deleteUser, updateUser, initialDelay=0 }) {
-  const [newUser, setNewUser] = useState({ ...user });
+  const { id, alias, img_url, age, story } = user
   const [editMode, setEditMode] = useState(false);
   const [render, setRender] = useState(false)
 
@@ -13,52 +12,59 @@ function User({ user, deleteUser, updateUser, initialDelay=0 }) {
     return () => clearTimeout(timeout)
   }, [initialDelay])
 
-  function handleChange(e) {
-    const updatedValue = { ...newUser };
-    updatedValue[e.target.name] = e.target.value;
-    setNewUser({ ...updatedValue });
-  }
-
-  function toggleEdit() {
-    setEditMode(!editMode);
-  }
-
-  function handleDelete() {
+  function handleDeleteUser() {
     deleteUser(id);
   }
 
-  function handleUpdate(e) {
-    e.preventDefault();
-    updateUser(newUser);
+  function handleChangeUser(e) {
+        const userInput= e.target.value;
+        const fieldName = e.target.name;
+        setState({
+          ...setState,
+          [fieldName]: userInput
+        });
+      }
+      function toggleEdit() {
+        setEditMode(!editMode);
+      }
+
+      function handleUpdate(e) { 
+        e.preventDefault();
+        const updatedUser = {
+          alias: updateUser.alias,
+          img_url: updateUser.img_url,
+          age: parseInt(updateUser.age),
+          story: updateUser.story,
+    };
+    updateUser(id, updatedUser);
     setEditMode(false);
-}    
-
-if (!render) {
-  return <></>
-}
-
+  }
+  if (!render) {
+    return <></>
+  }
   return (
     <div className="user"> 
-      <h3> <Link to={`/users/${id}`}>{alias}</Link> </h3>
-      <img src={image} alt={`${image}`} width="90%"/>
-      <div className="User-desc"></div>
-        <p>Age: {age}</p>
+      <h3> <Link to={`/users/${user.id}`}>{alias}</Link></h3>
+      <img src={img_url} alt={`${img_url}`} width="90%"/>
+      <div className="User-desc">
+        <p>Age: {age}</p> 
         <p>Story: {story}</p>
+      </div>
       {editMode && (
         <>
-          <form onSubmit={handleUpdate}>
-            <label> alias: <input type="text" name="alias" value={newUser.alias} onChange={handleChange} /></label>
-            <label> image: <input type="text" name="image" value={newUser.img_url} onChange={handleChange} /></label>
-            <label> age: <input type="text" name="age" value={newUser.age} onChange={handleChange} /></label>
-            <label> story: <input type="text" name="story" value={newUser.story} onChange={handleChange} /></label>
-            <button className="user-btn" onClick={handleUpdate}>Update User info</button>
-            <button className="user-btn" onClick={handleDelete}>Delete User</button>
-          </form>
-        </>
+      <form onSubmit={handleChangeUser}>
+        <label> alias: <input type="text" name="alias" value={updateUser.alias} onChange={handleUpdate} /> </label>
+        <label> image: <input type="text" name="img_url" value={updateUser.img_url} onChange={handleUpdate} /> </label>
+        <label> age: <input type="text" name="age" value={updateUser.age} onChange={handleUpdate} /> </label>
+        <label> story: <input type="text" name="story" value={updateUser.story} onChange={handleUpdate} /> </label>
+        <button type="submit">Create User</button>
+      </form>
+      <button className="user-btn" onClick={handleDeleteUser}>Delete User</button>
+      <button className="user-btn" onClick={handleChangeUser}>Update User's Info</button>
+    </>
       )}
       <button onClick={toggleEdit}>Edit</button>
     </div>
   );
 }
-
 export default User;
