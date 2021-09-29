@@ -7,8 +7,10 @@
   
   .user-container-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: stretch;
     justify-content: center;
     margin-top: 20px;
     text-align: center;
+    width: 90%;
+    height: 20%;
   }

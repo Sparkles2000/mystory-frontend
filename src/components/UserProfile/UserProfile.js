@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { BASE_URL } from "../constraints/index.js";
 import { useParams } from 'react-router-dom';
 import "./UserProfile.css";
-
-
-const BASE_URL = 'http://127.0.0.1:3000/users';
 
 function UserProfile() {
   const [user, setUser] = useState({});
@@ -11,8 +9,7 @@ function UserProfile() {
   const id = params.id;
 
   useEffect(() => {
-    const URL =`${BASE_URL}/${id}`;
-    fetch(URL)
+    fetch(BASE_URL + "users/" + id)
       .then(r => r.json())
       .then(userData => {
         setUser(userData);

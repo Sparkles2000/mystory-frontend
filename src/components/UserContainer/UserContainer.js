@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { BASE_URL } from "../constraints/index.js";
 import "./UserContainer.css";
 import User from '../User/User';
 import UserForm from "../UserForm/UserForm";
-
-const BASE_URL = 'http://127.0.0.1:3000/users';
 
 function UserContainer() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(BASE_URL)
+    fetch(BASE_URL + "users/")
       .then(r => r.json())
       .then(userData => setUsers(userData))
   }, [])
 
   function deleteUser(userId) {
-    const URL = `${BASE_URL}/${userId}`; // BASE_URL + `/${userId}`
-    const config = { method: "DELETE" };
-    fetch(URL, config)
+    fetch(BASE_URL + "users/" + userId)
       .then(r => r.json())
       .then(() => {
         const newUsers = users.filter(user => user.id !== userId);
@@ -25,25 +22,24 @@ function UserContainer() {
       })
   }
 
+ 
   function createUser(user) {
-    const config = {
+    fetch(BASE_URL + "users", {
       method: "POST",
+      body: JSON.stringify(user),
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
-    }
+    })
+      .then((res) => res.json())
+      .then((json) => setUsers([...users, json]));
 
-    fetch(BASE_URL, config)
-      .then(r => r.json())
-      .then(newUser => {
-        const newUsers = [...users, newUser];
-        setUsers(newUsers);
-      })
+    // PESSIMISTIC RENDERING
   }
 
   function updateUser(id, updatedUser) {
-    fetch(`${BASE_URL}/${id}`, {
+    fetch(BASE_URL + "users/" + users.id, {
       method: "PATCH",
       headers: {
         "Accept-Header": "application/json",
@@ -62,7 +58,7 @@ function UserContainer() {
   }
 
   return (
-    <div className="User-container">
+    <div className="u-container">
       <UserForm createUser={createUser} />
       <div className="User-container-list">
         { users.length === 0

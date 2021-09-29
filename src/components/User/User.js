@@ -1,9 +1,10 @@
-import React, { useState, setState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./User.css";
 import { Link } from 'react-router-dom';
 
 function User({ user, deleteUser, updateUser, initialDelay=0 }) {
   const { id, alias, img_url, age, story } = user
+  const [updatedUser, setUpdatedUser] = useState({ ...user});
   const [editMode, setEditMode] = useState(false);
   const [render, setRender] = useState(false)
 
@@ -17,17 +18,13 @@ function User({ user, deleteUser, updateUser, initialDelay=0 }) {
   }
 
   function handleChangeUser(e) {
-        const userInput= e.target.value;
-        const fieldName = e.target.name;
-        setState({
-          ...setState,
-          [fieldName]: userInput
-        });
-      }
+    const updatedValue = { ...updatedUser };
+      updatedValue[e.target.name] = e.target.value;
+      setUpdatedUser({ ...updatedValue });
+     }
       function toggleEdit() {
         setEditMode(!editMode);
       }
-
       function handleUpdate(e) { 
         e.preventDefault();
         const updatedUser = {
@@ -36,8 +33,9 @@ function User({ user, deleteUser, updateUser, initialDelay=0 }) {
           age: parseInt(updateUser.age),
           story: updateUser.story,
     };
-    updateUser(id, updatedUser);
+    updateUser(updatedUser);
     setEditMode(false);
+    console.log()
   }
   if (!render) {
     return <></>
@@ -55,12 +53,11 @@ function User({ user, deleteUser, updateUser, initialDelay=0 }) {
       <form onSubmit={handleChangeUser}>
         <label> alias: <input type="text" name="alias" value={updateUser.alias} onChange={handleUpdate} /> </label>
         <label> image: <input type="text" name="img_url" value={updateUser.img_url} onChange={handleUpdate} /> </label>
-        <label> age: <input type="text" name="age" value={updateUser.age} onChange={handleUpdate} /> </label>
+        <label> age: <input type="parseInt" name="age" value={updateUser.age} onChange={handleUpdate} /> </label>
         <label> story: <input type="text" name="story" value={updateUser.story} onChange={handleUpdate} /> </label>
-        <button type="submit">Create User</button>
+        <button type="submit">Update User Info</button>
       </form>
       <button className="user-btn" onClick={handleDeleteUser}>Delete User</button>
-      <button className="user-btn" onClick={handleChangeUser}>Update User's Info</button>
     </>
       )}
       <button onClick={toggleEdit}>Edit</button>
